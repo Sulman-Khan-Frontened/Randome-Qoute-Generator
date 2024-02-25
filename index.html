@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Random Quotes Generator</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            font-family: system-ui;
+        }
+
+        body {
+            background-color: black;
+        }
+
+        .container {
+            box-sizing: border-box;
+            height: 100vh;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column-reverse;
+            row-gap: 5rem;
+            transition: 0.3s linear;
+        }
+
+
+        .qoute-container {
+            color: white;
+            font-size: 4rem;
+            width: 80%;
+            height: auto;
+            text-align: center;
+            transition: 0.3s linear;
+        }
+
+        button {
+            background-color: transparent;
+            outline: none;
+            border: none;
+            padding: 1rem 2rem;
+            box-shadow: 0px 0px 5px rgb(174, 243, 255);
+            cursor: pointer;
+            border-radius: 50px;
+            color: rgb(196, 196, 196);
+            transition: 0.3s linear;
+        }
+
+        button:hover {
+            background-color: rgb(105, 213, 255);
+            color: black;
+        }
+
+        button:hover~.qoute-container {
+            color: rgb(196, 196, 196);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <button onclick="generate()">Generate</button>
+        <div class="qoute-container">
+            You'll see it when you believe it.
+        </div>
+    </div>
+
+    <script>
+        async function generate() {
+            var api = `https://type.fit/api/quotes`;
+            var Fetch = await fetch(api).then(first => first.json()).then(data => data[Math.floor(Math.random() * 16)].text);
+            var Element = document.querySelector(".qoute-container");
+            Element.textContent = Fetch;
+            document.body.classList.toggle("active")
+        }
+    </script>
+</body>
+
+</html>
